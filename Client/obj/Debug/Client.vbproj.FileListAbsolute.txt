@@ -1,0 +1,16 @@
+D:\Visuaal-SRC\Client\Client\bin\Debug\Client.exe.config
+D:\Visuaal-SRC\Client\Client\bin\Debug\Client.exe
+D:\Visuaal-SRC\Client\Client\bin\Debug\Client.pdb
+D:\Visuaal-SRC\Client\Client\bin\Debug\Client.xml
+D:\Visuaal-SRC\Client\Client\bin\Debug\Newtonsoft.Json.dll
+D:\Visuaal-SRC\Client\Client\bin\Debug\Newtonsoft.Json.xml
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.vbproj.AssemblyReference.cache
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.Form1.resources
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.Resources.resources
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.vbproj.GenerateResource.cache
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.vbproj.CoreCompileInputs.cache
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.vbproj.Up2Date
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.exe
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.xml
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.pdb
+D:\Visuaal-SRC\Client\Client\obj\Debug\Client.Form2.resources
