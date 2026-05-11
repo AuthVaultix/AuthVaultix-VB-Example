@@ -28,7 +28,7 @@ Public Class Form2
         userDataField.Items.Add("HWID: " & user.hwid)
         userDataField.Items.Add("Creation Date: " & user.CreationDateFormatted)
         userDataField.Items.Add("Last Login: " & user.LastLoginFormatted)
-        userDataField.Items.Add("Time Left: " & user.subscriptions(0).TimeLeft_String)
+        userDataField.Items.Add("Time Left: " & user.subscriptions(0).TimeLeft)
 
         ' Online users
         Try
