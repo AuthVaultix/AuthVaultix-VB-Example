@@ -92,7 +92,7 @@ Dim user = Client.CurrentUser
 lblUsername.Text = "Welcome, " & user.username
 lblIP.Text = "Your IP: " & user.ip
 lblExpiry.Text = "Expires: " & user.subscriptions(0).ExpiryFormatted
-lblTimeLeft.Text = "Time Remaining: " & user.subscriptions(0).TimeLeft_String
+lblTimeLeft.Text = "Time Remaining: " & user.subscriptions(0).TimeLeft
 ```
 
 ### Online Users List
@@ -141,16 +141,44 @@ Client.Ban("Violation of terms", msg)
 
 ## 📖 API Reference
 
+### Authentication & Session
 | Method | Return Type | Description |
 | :--- | :--- | :--- |
 | `Init()` | `Boolean` | Initializes the secure session with the API. |
-| `Login()` | `Boolean` | Authenticates the user and binds HWID. |
-| `Register()` | `Boolean` | Creates a new user with a license key. |
-| `Download()` | `Boolean` | Downloads a file encrypted by the server. |
-| `ChatSend()` | `Boolean` | Sends a message to the specified channel. |
-| `ChatFetch()`| `Task(Of List)`| Asynchronously fetches chat messages. |
-| `FetchOnline()`| `Boolean` | Gets a list of currently online users. |
-| `SetVar()` | `Boolean` | Updates a user-specific variable. |
+| `Login(username, password)` | `Boolean` | Authenticates the user and binds HWID. |
+| `Register(username, password, key, email?)` | `Boolean` | Creates a new user with a license key. |
+| `LicenseLogin(licenseKey)` | `Boolean` | Authenticates directly via license key. |
+| `Check()` | `Boolean` | Validates if the current session is still active. |
+| `Logout()` | `Void` | Invalidates current session and logs out. |
+
+### Account Management
+| Method | Return Type | Description |
+| :--- | :--- | :--- |
+| `Upgrade(username, licenseKey)` | `Boolean` | Upgrades user's account/subscription. |
+| `ForgotPassword(username, email)` | `Boolean` | Triggers a password reset email. |
+| `ChangeUsername(newUsername)` | `Void` | Changes the current user's username. |
+
+### Security & Blacklist
+| Method | Return Type | Description |
+| :--- | :--- | :--- |
+| `Ban(reason, ByRef serverMessage)` | `Boolean` | Bans the currently authenticated user. |
+| `CheckBlacklist(ByRef serverMessage)` | `Boolean` | Checks if the machine HWID is blacklisted. |
+| `Log(message, ByRef serverMessage)` | `Boolean` | Sends a log to the AuthVaultix dashboard. |
+
+### Variables & Data
+| Method | Return Type | Description |
+| :--- | :--- | :--- |
+| `GetGlobalVar(varKey)` | `String` | Fetches a global server-side variable. |
+| `GetVar(varName)` | `String` | Fetches a user-specific server-side variable. |
+| `SetVar(varName, value)` | `Boolean` | Sets a user-specific variable. |
+| `Download(fileId, ByRef fileBytes, ByRef msg)` | `Boolean` | Securely downloads a file into a Byte Array. |
+
+### Communication
+| Method | Return Type | Description |
+| :--- | :--- | :--- |
+| `FetchOnline(ByRef users, ByRef msg)` | `Boolean` | Gets a list of currently online users. |
+| `ChatSend(message, channel, ByRef msg)` | `Boolean` | Sends a chat message to a specific channel. |
+| `ChatFetch(channel)` | `Task(Of List(Of ChatMessage))` | Asynchronously retrieves chat history. |
 
 ---
 
