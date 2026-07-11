@@ -299,6 +299,12 @@ Namespace AuthVaultix
                 .WithValue("username", username) _
                 .WithValue("pass", password) _
                 .WithValue("hwid", HardwareIdentifier.Fetch()) _
+                .WithValue("os", SystemInfoCollector.GetOSVersion()) _
+                .WithValue("platform", SystemInfoCollector.GetPlatform()) _
+                .WithValue("device", SystemInfoCollector.GetDeviceType()) _
+                .WithValue("architecture", SystemInfoCollector.GetArchitecture()) _
+                .WithValue("cpu_cores", SystemInfoCollector.GetCpuCores()) _
+                .WithValue("ram", SystemInfoCollector.GetRamGB()) _
                 .Compile()
 
             Dim sig As String = Nothing
@@ -1007,6 +1013,68 @@ Namespace AuthVaultix
                 Next
                 Return formatted.ToString()
             End Using
+        End Function
+    End Class
+
+    Friend Class SystemInfoCollector
+        Public Shared Function GetOSVersion() As String
+            Try
+                Dim caption As String = ""
+                Using searcher As New ManagementObjectSearcher("SELECT Caption, Version FROM Win32_OperatingSystem")
+                    For Each obj As ManagementObject In searcher.Get()
+                        caption = obj("Caption")?.ToString()
+                        Dim version As String = obj("Version")?.ToString()
+                        If Not String.IsNullOrEmpty(caption) AndAlso Not String.IsNullOrEmpty(version) Then
+                            If caption.StartsWith("Microsoft ") Then
+                                caption = caption.Substring("Microsoft ".Length)
+                            End If
+                            Return $"{caption} ({version})"
+                        End If
+                    Next
+                End Using
+            Catch
+            End Try
+            Return $"{Environment.OSVersion.Platform} ({Environment.OSVersion.Version})"
+        End Function
+
+        Public Shared Function GetPlatform() As String
+            Return "native"
+        End Function
+
+        Public Shared Function GetDeviceType() As String
+            Return "Desktop"
+        End Function
+
+        Public Shared Function GetArchitecture() As String
+            Return If(Environment.Is64BitOperatingSystem, "X64", "X86")
+        End Function
+
+        Public Shared Function GetCpuCores() As String
+            Dim physicalCores As Integer = 0
+            Dim logicalProcessors As Integer = Environment.ProcessorCount
+            Try
+                Using searcher As New ManagementObjectSearcher("Select NumberOfCores from Win32_Processor")
+                    For Each item In searcher.Get()
+                        physicalCores += Convert.ToInt32(item("NumberOfCores"))
+                    Next
+                End Using
+            Catch
+            End Try
+            If physicalCores = 0 Then physicalCores = logicalProcessors
+            Return $"{physicalCores} Cores / {logicalProcessors} Threads"
+        End Function
+
+        Public Shared Function GetRamGB() As String
+            Try
+                Using searcher As New ManagementObjectSearcher("SELECT TotalPhysicalMemory FROM Win32_ComputerSystem")
+                    For Each obj As ManagementObject In searcher.Get()
+                        Dim bytes As ULong = CType(obj("TotalPhysicalMemory"), ULong)
+                        Return Math.Round(bytes / (1024.0 * 1024.0 * 1024.0)).ToString()
+                    Next
+                End Using
+            Catch
+            End Try
+            Return "0"
         End Function
     End Class
 
