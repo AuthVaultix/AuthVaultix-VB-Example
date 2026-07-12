@@ -299,6 +299,7 @@ Namespace AuthVaultix
                 .WithValue("username", username) _
                 .WithValue("pass", password) _
                 .WithValue("hwid", HardwareIdentifier.Fetch()) _
+                .WithValue("version", _version) _
                 .WithValue("os", SystemInfoCollector.GetOSVersion()) _
                 .WithValue("platform", SystemInfoCollector.GetPlatform()) _
                 .WithValue("device", SystemInfoCollector.GetDeviceType()) _
@@ -356,6 +357,13 @@ Namespace AuthVaultix
                 .WithValue("key", licenseKey) _
                 .WithValue("email", email) _
                 .WithValue("hwid", HardwareIdentifier.Fetch()) _
+                .WithValue("version", _version) _
+                .WithValue("os", SystemInfoCollector.GetOSVersion()) _
+                .WithValue("platform", SystemInfoCollector.GetPlatform()) _
+                .WithValue("device", SystemInfoCollector.GetDeviceType()) _
+                .WithValue("architecture", SystemInfoCollector.GetArchitecture()) _
+                .WithValue("cpu_cores", SystemInfoCollector.GetCpuCores()) _
+                .WithValue("ram", SystemInfoCollector.GetRamGB()) _
                 .Compile()
 
             Dim sig As String = Nothing
@@ -378,6 +386,13 @@ Namespace AuthVaultix
                 .WithContext(_appName, _ownerId, SessionId) _
                 .WithValue("key", licenseKey) _
                 .WithValue("hwid", HardwareIdentifier.Fetch()) _
+                .WithValue("version", _version) _
+                .WithValue("os", SystemInfoCollector.GetOSVersion()) _
+                .WithValue("platform", SystemInfoCollector.GetPlatform()) _
+                .WithValue("device", SystemInfoCollector.GetDeviceType()) _
+                .WithValue("architecture", SystemInfoCollector.GetArchitecture()) _
+                .WithValue("cpu_cores", SystemInfoCollector.GetCpuCores()) _
+                .WithValue("ram", SystemInfoCollector.GetRamGB()) _
                 .Compile()
 
             Dim sig As String = Nothing
